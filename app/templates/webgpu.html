@@ -24,7 +24,7 @@
 
         <h1>Ch08_SimpleCompute</h1>
         <h2>
-            <button id ="Ch08_SimpleCompute">Simple Computing</button>
+            <button id="Ch08_SimpleCompute">Simple Computing</button>
             <!-- Label identifying input vector -->
             <br /><label id="inputVector"></label><br /><br />
 
@@ -57,6 +57,24 @@
 
         </h2>
 
+        <br /><br />
+        <h1>Ch10_SharpenImage</h1>
+
+        <!-- Display original image -->
+        <img src="{{ url_for('static', filename='image/tower.png') }}" height="640" width="640" />
+
+        <!-- Create the canvas -->
+        <canvas id="canvas_ch10_sharpen_image" width="640" height="640"></canvas>
+
+
+        <br /><br />
+        <h1>Ch10_binary image</h1>
+
+        <!-- Display original image -->
+        <img src="{{ url_for('static', filename='image/word.JPG') }}" height="3024" width="4032" />
+
+        <!-- Create the canvas -->
+        <canvas id="canvas_ch10_binary_image" width="640" height="640"></canvas>
 
         <script type="module" src="{{ url_for('static', filename='js/ch02_objectcreation.js') }}"></script>
     </body>
