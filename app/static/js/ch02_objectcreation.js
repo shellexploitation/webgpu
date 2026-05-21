@@ -2680,8 +2680,10 @@ async function runExample_ch10_sharpen_image() {
     device.queue.submit([encoder.finish()]);
 }
 
-// Run example function
-runExample_ch10_sharpen_image();
+document.getElementById("btn_Ch10_SharpenImage").onclick = function () {
+    // Run example function
+    runExample_ch10_sharpen_image();
+}
 
 ///////////////////////// binary image //////////////////////////////
 const computeCode_ch10_binary_image = `
@@ -2698,24 +2700,20 @@ fn computeMain(
 
     var x = global_id.x;
     var y = global_id.y;
-    var k = array<f32, 9>(-1.0, -1.0, -1.0, -1.0, 9.0, -1.0, -1.0, -1.0, -1.0);
-
-    // Load the texel at the given position
-    var texel: vec4f = 
-        k[0] * textureLoad(in_tex, vec2(x-1, y-1), 0) + 
-        k[1] * textureLoad(in_tex, vec2(x,   y-1), 0) + 
-        k[2] * textureLoad(in_tex, vec2(x+1, y-1), 0) + 
-        k[3] * textureLoad(in_tex, vec2(x-1, y), 0) + 
-        k[4] * textureLoad(in_tex, vec2(x,   y), 0) + 
-        k[5] * textureLoad(in_tex, vec2(x+1, y), 0) + 
-        k[6] * textureLoad(in_tex, vec2(x-1, y+1), 0) + 
-        k[7] * textureLoad(in_tex, vec2(x,   y+1), 0) + 
-        k[8] * textureLoad(in_tex, vec2(x+1, y+1), 0);
-
-    // Store result to the storage texture
-    //textureStore(out_tex, vec2(x, y), texel);
-
+   
     var texel_raw = textureLoad(in_tex, vec2(x, y), 0);
+    if ((texel_raw.r + texel_raw.g + texel_raw.b) > 1.5) {
+        texel_raw.r = 1.0;
+        texel_raw.g = 1.0;
+        texel_raw.b = 1.0;
+    }else {
+        
+        texel_raw.r = 0.0;
+        texel_raw.g = 0.0;
+        texel_raw.b = 0.0;
+        
+    }
+
     textureStore(out_tex,vec2(x, y), texel_raw);
 }
 `;
@@ -2875,7 +2873,8 @@ async function runExample_ch10_binary_image() {
     computePass.setBindGroup(0, computeBindGroup);
 
     // Encode compute commands
-    computePass.dispatchWorkgroups(40, 40);
+    //computePass.dispatchWorkgroups(40, 40);
+    computePass.dispatchWorkgroups(189, 252);
 
     // Complete encoding compute commands
     computePass.end();
@@ -2973,5 +2972,6 @@ async function runExample_ch10_binary_image() {
     device.queue.submit([encoder.finish()]);
 }
 
-// Run example function
-runExample_ch10_binary_image();
+document.getElementById("btn_Ch10_binaryImage").onclick = function () {
+    runExample_ch10_binary_image();
+}
