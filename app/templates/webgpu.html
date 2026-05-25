@@ -123,6 +123,36 @@
 
         </h2>
 
+
+        <br /><br />
+        <h1>Ch12_DFT(Discrete Fourier Transform)</h1>
+        <button id="btn_Ch12_start_audio_compute_shader">Step 1: Start Audio Computing Shader</button>
+        <h2>
+            <!-- Button to play noisy audio -->
+            <button type="button" id="noisy">Step 2: Play Noisy Audio</button><br /><br />
+            <!-- Button to play filtered audio -->
+            <button type="button" id="filtered">Step 3: Play Filtered Audio</button><br />
+
+        </h2>
+
+        <br /><br />
+        <h1>Ch12_FFT(Fast Fourier Transform)</h1>
+        <button id="btn_Ch12_fft_start_audio_compute_shader">Step 1: FFT Start Audio Computing Shader</button>
+        <h2>
+
+            <!-- Button to play noisy audio -->
+            <button type="button" id="noisy_ch12_fft">Step 2: Play Noisy Audio</button><br /><br />
+
+            <!-- Button to play filtered audio -->
+            <button type="button" id="filtered_ch12_fft">Step 3: Play Filtered Audio</button><br />
+
+            <br /><label id="realVector"></label><br /><br />
+
+            <label id="imagVector"></label>
+
+        </h2>
+
+
         <script type="module" src="{{ url_for('static', filename='js/ch02_objectcreation.js') }}"></script>
     </body>
 </html>
