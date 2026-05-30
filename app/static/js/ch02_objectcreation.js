@@ -2794,8 +2794,9 @@ async function runExample_ch10_binary_image() {
     });
 
     // Create ImageBitmap from image file
-    const response = await fetch(SERVER_PATH + "/static/image/word.JPG");
-    const imageBitmap = await createImageBitmap(await response.blob());
+    //const response = await fetch(SERVER_PATH + "/static/image/word.JPG");
+    //const imageBitmap = await createImageBitmap(await response.blob());
+    const imageBitmap = await createImageBitmap(document.getElementById('previewImage'));
 
     // Create texture to hold input image
     const imageTexture = device.createTexture({
@@ -2971,11 +2972,11 @@ async function runExample_ch10_binary_image() {
     // Submit the render commands to the GPU
     device.queue.submit([encoder.finish()]);
 }
-/*
+
 document.getElementById("btn_Ch10_binaryImage").onclick = function () {
     runExample_ch10_binary_image();
 }
-*/
+
 ////////////////////////// ch 10 video ///////////////
 const shaderCode_Ch10_VideoProc = `
 
@@ -5274,3 +5275,59 @@ async function runExample_ch12_fft() {
 document.getElementById("btn_Ch12_fft_start_audio_compute_shader").onclick = function () {
     runExample_ch12_fft();
 }
+
+////////////////// Appendix B web assembly ///////////////////////
+// Create top-level asynchronous function
+async function runExample_appendix_b_web_assembly() {
+
+    // Obtain Response containing file content
+    let resp = await fetch(SERVER_PATH + "/static/js/simplewasm.wasm");  
+    
+    // Obtain the ResultSet containing the WebAssembly module and instance
+    let wasm = await WebAssembly.instantiateStreaming(resp);
+
+    // Print the return value of the exported function
+    console.log(wasm.instance.exports.foo());
+}
+
+document.getElementById("btn_appendix_b_web_assembly").onclick = function () {
+    runExample_appendix_b_web_assembly();
+}
+
+///////////////// processing image //////////////////////////////////////////////
+/*
+document.getElementById('imageInput').addEventListener('change', handleFileSelect, false);
+
+function handleFileSelect(event) {
+    const files = event.target.files;
+    const file = files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const imgElement = document.createElement('img');
+            imgElement.src = e.target.result; // get the url
+            document.body.appendChild(imgElement); // add into the page
+        }
+
+        reader.readAsDataURL(file);
+    }
+}
+*/
+
+document.getElementById('imageInput').addEventListener('change', function (e) {
+    const file = e.target.files[0];
+    
+    if (file) {
+        const imgElement = document.getElementById('previewImage');
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            
+            //document.getElementById('previewImage').src = e.target.result;
+            imgElement.src = e.target.result;
+        }
+
+        reader.readAsDataURL(file);
+    }
+});
