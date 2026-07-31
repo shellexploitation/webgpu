@@ -5323,9 +5323,16 @@ document.getElementById('imageInput').addEventListener('change', function (e) {
 
         const reader = new FileReader();
         reader.onload = function (e) {
-            
-            //document.getElementById('previewImage').src = e.target.result;
             imgElement.src = e.target.result;
+        }
+
+        // update canvas size
+        reader.onloadend = function (e) {
+            const canvas = document.getElementById("canvas_ch10_binary_image");
+            if (canvas) {
+                canvas.width = imgElement.width;
+                canvas.height = imgElement.height;
+            }
         }
 
         reader.readAsDataURL(file);
