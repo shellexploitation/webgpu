@@ -1,6 +1,6 @@
 var SERVER_PATH = 'http://127.0.0.1:5000';
-
 import { mat4, vec4 } from 'http://127.0.0.1:5000/static/js/wgpu-matrix.module.js';
+
 
 // Define uniform data
 const modelMat = mat4.translation([0.0, 0.0, -10.0]);
@@ -2766,6 +2766,12 @@ async function runExample_ch10_binary_image() {
     const canvas = document.getElementById("canvas_ch10_binary_image");
     if (!canvas) {
         throw new Error("Could not access canvas in page");
+    }
+
+    const previewImgElement = document.getElementById('previewImage');
+    if (previewImgElement) {
+        canvas.width = previewImgElement.width;
+        canvas.height = previewImgElement.height;
     }
 
     // Obtain a WebGPU context for the canvas
