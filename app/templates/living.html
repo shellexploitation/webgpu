@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Calculating</title>
+
+    <style>
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <script type="module" src="{{ url_for('static', filename='js/living.js') }}"></script>
+    request counter = {{request_counter}}
+    <hr />
+    <label>ah:<input type="number" id="ah" value="10" /></label>
+    <br /><br />
+    <label>voltage(v):<input type="number" id="voltage" value="48" /></label>
+    <br /><br />
+    <label>Power Capacity(wh):<input type="number" id="powerCapacity" /></label>
+    <br /><br />
+    <button id="calculating">calculating</button>
+    <hr />
+    <br /><br />
+
+
+
+</body>
+</html>
